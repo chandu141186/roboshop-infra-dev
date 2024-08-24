@@ -9,7 +9,7 @@ terraform {
 
   backend "s3" {
     bucket         = "chandudaws76-state-dev"
-    key            = "ec2"
+    key            = "ec2instance"
     region         = "us-east-1"
     dynamodb_table = "chandudaws76-locking-dev"
 

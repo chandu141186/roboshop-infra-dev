@@ -34,12 +34,12 @@ resource "null_resource" "mongodb" {
   }
 
 
-  provisioner "file" {
+   provisioner "file" {
     source      = "bootstrap.sh"
     destination = "/tmp/bootstrap.sh"
   }
 
-  provisioner "remote-exec" {
+   provisioner "remote-exec" {
     # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "chmod +x /tmp/bootstrap.sh",
@@ -81,12 +81,12 @@ resource "null_resource" "redis" {
   }
 
 
- provisioner "file" {
+   provisioner "file" {
     source      = "bootstrap.sh"
     destination = "/tmp/bootstrap.sh"
   }
 
-  provisioner "remote-exec" {
+   provisioner "remote-exec" {
     # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "chmod +x /tmp/bootstrap.sh",
@@ -127,12 +127,12 @@ resource "null_resource" "mysql" {
   }
 
 
- provisioner "file" {
+   provisioner "file" {
     source      = "bootstrap.sh"
     destination = "/tmp/bootstrap.sh"
   }
 
-  provisioner "remote-exec" {
+   provisioner "remote-exec" {
     # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "chmod +x /tmp/bootstrap.sh",
@@ -174,12 +174,12 @@ resource "null_resource" "rabbitmq" {
   }
 
  
- provisioner "file" {
+   provisioner "file" {
     source      = "bootstrap.sh"
     destination = "/tmp/bootstrap.sh"
   }
 
-  provisioner "remote-exec" {
+   provisioner "remote-exec" {
     # Bootstrap script called with private_ip of each node in the cluster
     inline = [
       "chmod +x /tmp/bootstrap.sh",
@@ -198,7 +198,7 @@ module "records" {
       type    = "A"
       ttl     = 1
       records = [
-        "${module.mongodb.private_ip}",
+        "${module.mongodb.private_ip}"
       ]
     },
     {
@@ -206,7 +206,7 @@ module "records" {
       type    = "A"
       ttl     = 1
       records = [
-        "${module.redis.private_ip}",
+        "${module.redis.private_ip}"
       ]
     },
     {
@@ -214,7 +214,7 @@ module "records" {
       type    = "A"
       ttl     = 1
       records = [
-        "${module.mysql.private_ip}",
+        "${module.mysql.private_ip}"
       ]
     },
     {
@@ -222,7 +222,7 @@ module "records" {
       type    = "A"
       ttl     = 1
       records = [
-        "${module.rabbitmq.private_ip}",
+        "${module.rabbitmq.private_ip}"
       ]
     },
  ]
