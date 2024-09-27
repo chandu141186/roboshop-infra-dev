@@ -1,4 +1,3 @@
-
 #!/bin/bash
 component=$1
 environment=$2 #dont use env here, it is reserved in linux

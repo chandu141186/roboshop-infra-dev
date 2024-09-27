@@ -7,11 +7,11 @@ terraform {
   }
 
 
-  backend "s3" {
-    bucket         = "chandudaws76-remote-state"
-    key            = "vpc"
+   backend "s3" {
+    bucket         = "chandudaws76-state-dev"
+    key            = "vpc2"
     region         = "us-east-1"
-    dynamodb_table = "chandudaws76-locking"
+    dynamodb_table = "chandudaws76-locking-dev"
 
   }
 }

@@ -1,9 +1,9 @@
-resource "aws_lb" "app_alb" {
+resource "aws_lb" "web_alb" {
   name               = "${local.name}-${var.tags.Component}" #roboshop-dev-app-alb
   internal           = true
   load_balancer_type = "application"
-  security_groups    = [data.aws_ssm_parameter.app_alb_sg_id.value]
-  subnets            = split(",",data.aws_ssm_parameter.private_subnet_ids.value)
+  security_groups    = [data.aws_ssm_parameter.web_alb_sg_id.value]
+  subnets            = split(",",data.aws_ssm_parameter.public_subnet_ids.value)
 
   #enable_deletion_protection = false
 
@@ -15,16 +15,17 @@ resource "aws_lb" "app_alb" {
   
 
  resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.app_alb.arn
-  port              = "80"
-  protocol          = "HTTP"
-
+  load_balancer_arn = aws_lb.web_alb.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = data.aws_ssm_parameter.acm_certificate_arn.value
   default_action {
     type = "fixed-response"
 
     fixed_response {
       content_type = "text/plain"
-      message_body = "This app alb for connection"
+      message_body = "This web alb for connection"
       status_code  = "200"
     }
   }
@@ -37,11 +38,11 @@ module "records" {
 
   records = [
     {
-      name    = " *.app-${var.environment}"
+      name    = "*.app-${var.environment}"
       type    = "A"
       alials   = {
-           name                   = aws_lb.app_alb.dns_name
-           zone_id                = aws_lb.app_alb.zone_id
+           name                   = aws_lb.web_alb.dns_name
+           zone_id                = aws_lb.web_alb.zone_id
 
       }
 
