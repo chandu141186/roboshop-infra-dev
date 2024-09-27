@@ -5,7 +5,7 @@ pipeline {
         }
     }
 
-
+stages{
 
    stage ('VPC')
     {
@@ -67,4 +67,5 @@ stage ('Database')
                 """
         }
     }
+}
 }
