@@ -4,17 +4,11 @@ pipeline {
             label agent1
         }
     }
-       environment { 
-        CC = 'clang'   
-       }
-         options {
-        timeout(time: 1, unit: 'HOURS') 
-    }
-    
 
 
-stage ('VPC')
-{
+
+   stage ('VPC')
+    {
         steps {
           sh  """
               cd 01-vpc
@@ -53,7 +47,7 @@ stage ('Database')
 {
         steps {
           sh  """
-              cd 04-databses
+              cd 04-databases
               terrfom init
               terraform plan
               terraform apply -auto-approve
