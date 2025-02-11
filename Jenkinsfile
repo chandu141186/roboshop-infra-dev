@@ -1,71 +1,71 @@
-pipeline {
+Pipeline {
     agent {
         node {
             label agent1
         }
     }
 
-stages{
+Stages {
 
-   stage ('VPC')
-    {
+    Stage ('VPC')
+      {
         steps {
-          sh  """
+             sh  """
               cd 01-vpc
               terrfom init
               terraform plan
               terraform apply -auto-approve
             """
         }
-    }
+      }
 
-stage ('SG')
-{
+    Stage ('SG')
+      {
         steps {
-            sh """
+             sh """
               cd 02-Sg
               terrfom init
               terraform plan
               terraform apply -auto-approve
             """
         }
-    }
+      }
 
-stage ('VPN')
-{
-        steps {
-           sh """
+    Stage ('VPN')
+      {
+         steps {
+             sh """
               cd 03-vpn
               terrfom init
               terraform plan
               terraform apply -auto-approve
             """
         }
-    }
+      }
 
-stage ('Database')
-{
+    Stage ('Database')
+      {
         steps {
-          sh  """
+            sh  """
               cd 04-databases
               terrfom init
               terraform plan
               terraform apply -auto-approve
             """
         }
-    }
+     }
      
-           stage ('appalb')
-                 {
+    Stage ('appalb')
+      {
        
-                steps {
-           sh"""
+        steps {
+             sh"""
                cd 05-app_alb
                terrfom init
                terraform plan
                terraform apply -auto-approve
                 """
         }
-    }
-}
+      }
+   }
 }

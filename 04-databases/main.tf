@@ -19,7 +19,7 @@ module "mongodb" {
 resource "null_resource" "mongodb" {
   # Changes to any instance of the cluster requires re-provisioning
   triggers = {
-    instance_id = module.mongodb.id
+    instance_id =module.mongodb.id
   }
 
   # Bootstrap script can run on any instance of the cluster
@@ -148,7 +148,6 @@ module "rabbitmq" {
   vpc_security_group_ids = [data.aws_ssm_parameter.rabbitmq_sg_id.value]
   subnet_id              = local.database_subnet_id
   iam_instance_profile = "Ec2forshell"
-  #iam_instance_profile = "ShellScriptRoleForRoboshop"
   tags = merge(
     var.common_tags,
     {
